@@ -1,22 +1,32 @@
 // 以下文件格式为描述路由的协议格式
 // 你可以调整 routerConfig 里的内容
-// 变量名 routerConfig 为 iceworks 检测关键字，请不要修改名称
+
 
 import BasicLayout from '../layouts/BasicLayout';
-import Projects from '../pages/Projects';
-import NotFound from '../pages/NotFound';
+import {projectConfig} from '../pages/Projects'
+import {pipelineConfig} from '../pages/Pipeline';
+import {NotFound, NotPermission} from '../pages/NotFound';
+import {loginConfig} from '../pages/Login'
+import {permissionConfig} from "../pages/Permissions";
+import codeConfig from "../pages/Code";
+import {testConfig} from "../pages/TestCases";
+import {imageConfig} from "../pages/Image";
 
-const routerConfig = [
+const baseConfig = [
     {
-        path: '/',
+        path: '/notPermission',
         layout: BasicLayout,
-        component: Projects,
+        component: NotPermission,
     },
     {
         path: '*',
         layout: BasicLayout,
         component: NotFound,
     },
+
 ];
+
+
+const routerConfig = [...imageConfig,...testConfig, ...codeConfig, ...projectConfig,  ...permissionConfig, ...pipelineConfig, ...loginConfig, ...baseConfig];
 
 export default routerConfig;

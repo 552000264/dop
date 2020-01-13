@@ -1,85 +1,62 @@
 // 菜单配置
 // headerMenuConfig：头部导航配置
 // asideMenuConfig：侧边导航配置
+import React from 'react';
+import {FormattedMessage} from 'react-intl';
+
 
 const headerMenuConfig = [
-  {
-    name: '反馈',
-    // path: 'https://github.com/alibaba/ice',
-    external: true,
-    newWindow: true,
-    icon: 'message',
-  },
-  {
-    name: '帮助',
-    // path: 'https://alibaba.github.io/ice',
-    external: true,
-    newWindow: true,
-    icon: 'bangzhu',
-  },
+    {
+        name:  <FormattedMessage id="base.feedback" defaultMessage="反馈"/>,
+        path: 'https://github.com/clsaa/dop/issues',
+        external: true,
+        newWindow: true,
+        icon: 'message',
+    },
+    {
+        name: <FormattedMessage id="base.help" defaultMessage="帮助"/>,
+        path: 'mailto:812022339@qq.com',
+        external: true,
+        newWindow: true,
+        icon: 'bangzhu',
+    },
 ];
 
 const asideMenuConfig = [
-  {
-    name: '全部项目',
-    path: '/',
-    icon: 'home2',
-  },
-  // {
-  //   name: '全部技能',
-  //   path: '/skill',
-  //   icon: 'cascades',
-  // },
-  // {
-  //   name: '知识库',
-  //   path: '/repository',
-  //   icon: 'person',
-  // },
-  // {
-  //   name: '实体管理',
-  //   path: '/entities',
-  //   icon: 'directory',
-  // },
-  // {
-  //   name: '泛化规则',
-  //   path: '/generalization',
-  //   icon: 'task',
-  // },
-  // {
-  //   name: '函数管理',
-  //   path: '/function',
-  //   icon: 'directory',
-  // },
-  // {
-  //   name: '发布项目',
-  //   path: '/publish',
-  //   icon: 'publish',
-  // },
-  // {
-  //   name: '数据统计',
-  //   path: '/analysis',
-  //   icon: 'chart',
-  // },
-  // {
-  //   name: '基本设置',
-  //   path: '/setting',
-  //   icon: 'shopcar',
-  // }
     {
-      name: '流水线管理',
-      path: 'assembly-line',
-      icon: 'ol-list',
+        name: <FormattedMessage id="project.projectName" defaultMessage="全部项目"/>,
+        path: '/project',
+        icon: 'home2',
     },
     {
-        name: '测试管理',
-        path: '/test',
+        name: <FormattedMessage id="pipeline.name" defaultMessage="流水线管理"/>,
+        path: '/pipeline',
+        icon: 'ol-list',
+    },
+    {
+        name: <FormattedMessage id="test.name" defaultMessage="测试管理"/>,
+        path: '/testCases',
         icon: 'repair',
     },
     {
-        name: '应用管理',
-        path: '/application',
-        icon: 'publish',
+
+        name: <FormattedMessage id="permission.permissionManagement" defaultMessage="权限管理"/>,
+        path: '/permission/permissions',
+        icon: 'account' ,
+    },
+
+    {
+        name: <FormattedMessage id="code.name" defaultMessage="代码管理"/>,
+        path: '/code/projects/personal',
+        icon: 'code',
+    },
+    {
+        name: <FormattedMessage id="image.name" defaultMessage="镜像管理"/>,
+        path: '/image/projects',
+        icon: 'image',
     }
+
+
 ];
 
-export { headerMenuConfig, asideMenuConfig };
+export {headerMenuConfig, asideMenuConfig};

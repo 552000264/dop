@@ -9,7 +9,7 @@ import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2WebFlux;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * swagger配置类
@@ -17,27 +17,31 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2WebFlux;
  * @author 任贵杰 812022339@qq.com
  */
 @Configuration
-@EnableSwagger2WebFlux
+@EnableSwagger2
 public class SwaggerConfig {
 
     private static final String API_PACKAGE_NAME = SwaggerConfig.class.getPackage().getName().replace("config", "controller");
-
-    @Value("project.groupId")
+    @Value("${project.host}")
+    private String host;
+    @Value("${project.groupId}")
     private String groupId;
-    @Value("project.artifactId")
+    @Value("${project.artifactId}")
     private String artifactId;
-    @Value("project.version")
+    @Value("${project.version}")
     private String version;
-    @Value("project.name")
+    @Value("${project.name}")
     private String name;
-    @Value("project.description")
+    @Value("${project.description}")
     private String description;
-    @Value("project.url")
+    @Value("${project.url}")
     private String url;
-
+    @Value("${swagger.enable}")
+    private boolean enableShow;
     @Bean
     public Docket createRestApi() {
         return new Docket(DocumentationType.SWAGGER_2)
+                .enable(enableShow)
+                .host(host)
                 .apiInfo(apiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage(API_PACKAGE_NAME))

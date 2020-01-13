@@ -10,10 +10,10 @@ spring:
     name: image-server
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
-    url: jdbc:mysql://sh-cdb-42xoavqj.sql.tencentcdb.com:63280/db_dop_image?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&allowMultiQueries=true
-    username: dop_dba
-    password: dop_dba_123456
-    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://115.28.186.77:30306/db_dop_image?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&allowMultiQueries=true
+    username: dop
+    password: Dop_mysql_12345
+    driver-class-name: com.mysql.cj.jdbc.Driver
     max-active: 10
     max-idle: 5
     min-idle: 5
@@ -45,23 +45,44 @@ spring.jackson.serialization.WRITE_DATES_AS_TIMESTAMPS: true
 spring.jackson.serialization.WRITE_DATE_TIMESTAMPS_AS_NANOSECONDS: false
 
 project:
+  host: localhost:${server.port}
   groupId: @project.groupId@
   artifactId: @project.artifactId@
   version: @project.version@
   name: @project.name@
   description: @project.description@
   url: @project.url@
-
+swagger.enable: true
 eureka:
   instance:
     appname: ${spring.application.name}
     instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}:@project.version@
     prefer-ip-address: true
     #续约更新时间间隔
-    lease-renewal-interval-in-seconds: 10
+    lease-renewal-interval-in-seconds: 5
     #续约到期时间
-    lease-expiration-duration-in-seconds: 30
+    lease-expiration-duration-in-seconds: 10
   client:
     serviceUrl:
-      defaultZone: http://discovery.clsaa.com:8761/eureka/
+      defaultZone: http://121.42.13.103:32129/eureka
+    registry-fetch-interval-seconds: 5 #定时刷新本地缓存
+ribbon:
+  ReadTimeout: 10000
+  ConnectTimeout: 10000
+  ServerListRefreshInterval: 2000
 logging.path: ./logs/${spring.application.name}
+
+feign:
+  url: https://registry.dop.clsaa.com/api
+
+message:
+  mq:
+    RocketMQ:                                     #RocketMQ相关配置
+      namesrvAddr: rocketmq.dop.clsaa.com:9876    #name-server地址与端口,多个可用分号隔开
+      instanceName: DOP_MESSAGE                   #要发送到的MQ集群
+      maxMessageSize: 131072 # 1024*128           #最大消息长度
+      sendMessageTimeout: 10000                   #消息发送超时时间
+      registerAccountTopic: REGISTER_ACCOUNT_QUEUE  #注册用户广播，主题名
+      updateAccountTopic: UPDATE_ACCOUNT_QUEUE      #更新用户广播，主题名
+      registerConsumerGroup: ACCOUNT_CONSUMER_GROUP #用户消费群组
+
